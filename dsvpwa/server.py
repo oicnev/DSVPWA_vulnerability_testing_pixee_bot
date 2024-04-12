@@ -1,12 +1,12 @@
 import sqlite3
-import xml.etree.ElementTree as ET
 
 from http.server import ThreadingHTTPServer
+import defusedxml.ElementTree
 
 
 class VulnHTTPServer(ThreadingHTTPServer):
     users = []
-    for user in ET.parse('./db/users.xml').findall("user"):
+    for user in defusedxml.ElementTree.parse('./db/users.xml').findall("user"):
         users.append((
             user.findtext('username'),
             user.findtext('firstname'),
